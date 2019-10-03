@@ -1,0 +1,17 @@
+<h1>첫번째 페이지입니다.</h1>
+
+<a href="/homes/second">두번째 페이지로 이동하기</a><br>
+<a href="/homes/third">세번쨰 페이지로 이동하기</a><br>
+<hr>
+<img src="https://mblogthumb-phinf.pstatic.net/MjAxODA0MjRfNDkg/MDAxNTI0NTM2NjAwNTQw.IddxA8-dF1o5mTaOwiJqesGQwyEDYYXYiYKmdV-WSMUg.1Rm40HP8qmd2PMAVhm5cyKtlHeifbI2GSnT6FTOncJsg.JPEG.dmm_korea/%ED%92%8D%EA%B2%BD%EC%98%81%EC%96%B4%EB%A1%9C_%EC%97%94%EA%B5%AC%ED%99%94%EC%83%81%EC%98%81%EC%96%B41.jpg?type=w800" width="700" height="400"><br>
+
+랜덤으로 추출된 번호는: <%= @sorted %> 입니다.<br>
+
+<hr>
+
+<form action="/homes/second" method="get">
+    성을 입력하세요: <input type="text" name="familyname"><br>
+    이메일을 입력: <input type="email" name="email"><br>
+    비밀번호: <input type="password" name="pwd"><br>
+    <input type="submit" value="제출하기">
+</form>
