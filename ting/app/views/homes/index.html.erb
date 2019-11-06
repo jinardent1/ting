@@ -1,0 +1,97 @@
+<h1>믿고하는 지인 소개팅, 믿팅</h1>
+<p>Find me in app/views/homes/index.html.erb</p>
+<hr>
+
+<% if user_signed_in? %>
+전종혁님의 라운지
+<p>현재 로그인된 유저의 이메일 : <%= current_user.email %></p>
+상태: 솔로<br>
+친구: 52명<br>
+주선 건수: 12건<br>
+<p><%= link_to "로그아웃", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure?" } %></p>
+<% else %>
+<p><%= link_to "로그인", new_user_session_path %></p>
+<% end %>
+
+<hr>
+<h2>솔로녀 친구</h2>
+<p><%= link_to "친구 추가하기", posts_path %></p>
+<% @posts.each do |p| %>
+    <%= p.title %> <br>
+    <% if p.avatar.attached? %>
+        <%= image_tag url_for(p.avatar), style: 'height:300px;width:auto' %>
+    <% end %>
+    <br>
+    <%= link_to "좋아요! #{p.hearts.size}", hearts_path(p.id) %>
+    &nbsp; 
+    <% p.hearts.each do |h| %>
+        | <%= @users.find(h.user_id).email %>
+    <% end %>
+    <br>
+    <% if user_signed_in? %>
+        <%= form_for @comment, url: post_comments_path(p.id), method: "POST" do |f| %>
+            <strong>작성자:</strong> '나' 
+            <strong>코멘트: <%= f.text_field :memo %> </strong>
+            <%= f.submit '작성하기' %>
+        <% end %>
+    <% end %>
+    <br>
+    <% p.comments.each do |c| %>
+        <% if user_signed_in? %>
+            <% if current_user.email == c.user %>
+                <strong>작성자:</strong> '나'
+                <strong>코멘트:</strong> <%= c.memo %> <%= link_to '삭제하기', post_comment_path(p.id, c.id), method: "DELETE" %>
+            <% else %>
+                <strong>작성자:</strong> <%= c.user %>
+                <strong>코멘트:</strong> <%= c.memo %>
+            <% end %>
+        <% else %>
+            <strong>작성자:</strong> <%= c.user %>
+            <strong>코멘트:</strong> <%= c.memo %>
+        <% end %>
+        <br>
+    <% end %>
+    <hr>
+    
+<% end %>
+
+<h2>솔로남 친구</h2>
+<p><%= link_to "친구 추가하기", posts_path %></p>
+<% @posts.each do |p| %>
+    <%= p.title %> <br>
+    <% if p.avatar.attached? %>
+        <%= image_tag url_for(p.avatar), style: 'height:300px;width:auto' %>
+    <% end %>
+    <br>
+    <%= link_to "좋아요! #{p.hearts.size}", hearts_path(p.id) %>
+    &nbsp; 
+    <% p.hearts.each do |h| %>
+        | <%= @users.find(h.user_id).email %>
+    <% end %>
+    <br>
+    <% if user_signed_in? %>
+        <%= form_for @comment, url: post_comments_path(p.id), method: "POST" do |f| %>
+            <strong>작성자:</strong> '나' 
+            <strong>코멘트: <%= f.text_field :memo %> </strong>
+            <%= f.submit '작성하기' %>
+        <% end %>
+    <% end %>
+    <br>
+    <% p.comments.each do |c| %>
+        <% if user_signed_in? %>
+            <% if current_user.email == c.user %>
+                <strong>작성자:</strong> '나'
+                <strong>코멘트:</strong> <%= c.memo %> <%= link_to '삭제하기', post_comment_path(p.id, c.id), method: "DELETE" %>
+            <% else %>
+                <strong>작성자:</strong> <%= c.user %>
+                <strong>코멘트:</strong> <%= c.memo %>
+            <% end %>
+        <% else %>
+            <strong>작성자:</strong> <%= c.user %>
+            <strong>코멘트:</strong> <%= c.memo %>
+        <% end %>
+        <br>
+    <% end %>
+    <hr>
+    
+<% end %>

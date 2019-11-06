@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>이름:</strong>
+  <%= @post.title %>
+</p>
+
+<p>
+  <strong>소개:</strong>
+  <%= @post.content %>
+</p>
+
+<p>
+  <% if @post.avatar.attached? %>
+    <strong>프로필 사진:</strong> <br>
+    <%= image_tag url_for(@post.avatar), style: 'height:300px; width:auto' %>
+  <% end %>
+</p>
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>
